@@ -6,9 +6,11 @@ import { Home } from './pages/Home'
 import { ProjectDetail } from './pages/ProjectDetail'
 import { useComposure } from './hooks/useComposure'
 import { projects } from './data/projects'
+import { useAnimatedFavicon } from './hooks/useAnimatedFavicon'
 import './App.css'
 
 function Portfolio() {
+  useAnimatedFavicon()
   const location = useLocation()
   useComposure(location.pathname)
   useEffect(() => {
