@@ -1,0 +1,26 @@
+/* Hero only: the requested black-on-paper material. The site's red design stays intact. */
+.liquid-hero { color:#151515; background:#f1f0eb; }
+.liquid-hero .hero-top, .liquid-hero .hero-bottom > span, .liquid-hero .hero-word sup { color:#151515; }
+.liquid-hero a:hover { color:#151515; }
+.liquid-hero a:focus-visible, .liquid-stage:focus-visible { outline-color:#151515; }
+.liquid-stage { padding-top:32px; padding-bottom:32px; touch-action:pan-y; isolation:isolate; user-select:none; -webkit-user-select:none; }
+.liquid-stage .hero-letter { transform:none; transition:none; }
+.liquid-canvas { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; opacity:0; }
+.liquid-stage[data-liquid-ready='true'] { touch-action:none; }
+.liquid-stage[data-liquid-ready='true'] .liquid-canvas { opacity:1; }
+.liquid-stage[data-liquid-ready='true'] .wordmark { color:transparent; }
+.liquid-stage[data-liquid-ready='true'] .hero-word sup { color:transparent; }
+.liquid-static-hint { display:none; }
+.liquid-tuning { position:fixed; z-index:40; bottom:16px; right:16px; width:272px; background:#f1f0eb; color:#151515; border:1px solid #aaa; font-size:11px; box-shadow:0 4px 20px #0001; }
+.liquid-tuning summary { padding:12px 14px; cursor:pointer; }
+.liquid-tuning summary > span { float:right; font-size:8px; color:#686862; }
+.liquid-tuning > div { padding:4px 14px 14px; max-height:65svh; overflow:auto; }
+.liquid-tuning label { display:block; margin:10px 0; }
+.liquid-tuning label > span { display:flex; justify-content:space-between; }
+.liquid-tuning input { display:block; width:100%; margin:8px 0 0; accent-color:#151515; }
+.liquid-tuning button { padding:9px; width:100%; border:1px solid; font-size:10px; }
+.liquid-tuning p { margin-top:10px; color:#686862; font-size:9px; }
+@media(max-width:600px) { .liquid-stage { padding-top:24px; padding-bottom:24px; } .liquid-tuning { width:245px; } }
+@media(prefers-reduced-motion:reduce) { .liquid-canvas { display:none; } .liquid-stage { touch-action:pan-y !important; } .liquid-motion-hint { display:none; } .liquid-static-hint { display:inline; } }
+/* Keep the studio's supplemental cursor out of the letter mask; native pointer remains. */
+body:has(.liquid-stage:hover) .cursor { opacity:0; }

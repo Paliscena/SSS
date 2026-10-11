@@ -1,0 +1,16 @@
+@font-face { font-family: 'Inter Variable'; font-style: normal; font-display: swap; font-weight: 100 900; src: url('@fontsource-variable/inter/files/inter-latin-wght-normal.woff2') format('woff2'); }
+
+:root { font-family: 'Inter Variable', sans-serif; color: #ffffff; background: #d63824; font-synthesis: none; text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; --paper: #d63824; --ink: #ffffff; --red: #d63824; --progress: 0; --hero-drift: 0px; }
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 32px; }
+body { margin: 0; }
+button, a { -webkit-tap-highlight-color: transparent; }
+button { font: inherit; color: inherit; cursor: pointer; }
+a { color: inherit; text-decoration: none; }
+button { border: 0; background: none; }
+img { max-width: 100%; display: block; }
+h1, h2, h3, p, figure { margin: 0; }
+button:focus-visible, a:focus-visible { outline: 2px solid var(--ink); outline-offset: 6px; }
+main:focus { outline: none; }
+::selection { background: var(--ink); color: var(--paper); }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { animation: none !important; transition: none !important; } }

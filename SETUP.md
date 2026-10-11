@@ -7,7 +7,17 @@ npm ci
 npm run dev
 ```
 
-The starter includes a basic counter to verify React interaction. Website design is intentionally deferred.
+Version 1 is a functional studio portfolio. The home page is at `/`, and reusable detail pages are at `/work/:slug`. Project data is centralized in `src/data/projects.ts`; see `ASSETS.md` for placeholder replacement and licenses.
+
+The navigation uses React Router. Cloudflare Pages provides SPA fallback automatically when no top-level `404.html` is present, including direct project links.
+
+Version 2 is a five-section page based on the supplied creative direction. Hero, About, Selected Work, What We Do, and Contact are all on `/`. Edit studio copy and the offering groups in `src/data/studio.ts`. About is a concise draft awaiting final copy.
+
+Work uses simple 16:9 grey placeholder tiles. In `src/data/projects.ts`, replace project titles, clients, thumbnails, and `videoUrl` with real YouTube or Vimeo HTTPS links. The viewer loads an embedded player only when a tile is opened. No autoplay, backend, or paid service is required. Blank or unsupported links show a clearly labeled placeholder viewer. Optional project detail routes remain available at `/work/:slug`.
+
+The liquid hero is preserved in `backups/sss-liquid-v1` and `backups/sss-liquid-v1.zip`, including its frozen production build. Preview the backup with `npx vite preview --outDir backups/sss-liquid-v1/dist --port 4174`. To work on that version independently, extract its source to a separate folder and run `npm ci`.
+
+The homepage question cycles through playful replies when clicked or activated by keyboard. Section reveals use IntersectionObserver with reduced-motion support. Navigation and video viewers use native modal dialogs for focus containment and Escape dismissal.
 
 ## Verification
 
