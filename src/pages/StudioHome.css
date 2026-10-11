@@ -30,7 +30,7 @@
 .film-caption > span:last-child { text-align:right; font-size:18px; }
 .film-client { display:block; font-size:10px; margin-top:6px; margin-left:36px; }
 .offerings-list { margin-top:45px; }
-.offerings-list article { display:grid; grid-template-columns:40px 1.2fr 1fr; gap:24px; align-items:baseline; padding:30px 0; border-bottom:1px solid #ffffff40; }
+.offerings-list article { display:grid; grid-template-columns:40px 1.2fr 1fr; gap:24px; align-items:baseline; padding:30px 0; border-bottom:1px solid #f0e9d340; }
 .offering-number { font-size:10px; }
 .offerings-list h3 { font-size:clamp(22px,3vw,48px); line-height:1.1; letter-spacing:-.05em; font-weight:500; max-width:500px; }
 .offerings-list p { font-size:13px; line-height:1.5; max-width:380px; }
@@ -153,7 +153,7 @@
 .smiley-dock.released { visibility:hidden; }
 .sliding-smiley { position:fixed; top:0; left:0; z-index:15; width:64px; padding:0; display:flex; flex-direction:column; align-items:center; gap:6px; touch-action:none; user-select:none; cursor:grab; transition:transform .8s cubic-bezier(.22,.75,.25,1); }
 .sliding-smiley .studio-smiley { width:60px; height:60px; }
-.sliding-smiley > span { color:white; font-family:monospace; font-size:8px; letter-spacing:.05em; }
+.sliding-smiley > span { color:var(--ink); font-family:monospace; font-size:8px; letter-spacing:.05em; }
 .sliding-smiley.is-dragging { cursor:grabbing; transition:none; }
 .sliding-smiley.is-dragging .studio-smiley { transform:rotate(16deg) scale(1.05); }
 @media(prefers-reduced-motion:reduce) { .sliding-smiley,.sliding-smiley .studio-smiley { transition:none; } }
@@ -182,7 +182,7 @@
   width:max-content;
   max-width:100%;
   padding:11px 16px 12px;
-  color:#151515;
+  color:var(--ink);
   font-size:clamp(12px,1.15vw,17px);
   font-weight:800;
   line-height:1.15;
@@ -208,31 +208,20 @@
 
 /* Lift only while handled; the resting sticker artwork stays unchanged. */
 .section-sticker { cursor:grab; touch-action:none; user-select:none; z-index:2; }
-.section-sticker:focus-visible { outline:2px solid white; outline-offset:5px; }
-.section-sticker::before { transition:filter .2s, clip-path .2s; }
-.section-sticker::after {
-  content:''; position:absolute; right:-3px; bottom:-1px;
-  width:0; height:0; opacity:0; pointer-events:none;
-  background:linear-gradient(135deg,#15151555 0%,var(--sticker-fold,#fffbd3) 46%,var(--sticker-fold,#e5df95) 100%);
-  clip-path:polygon(0 0,100% 0,0 100%);
-  transition:width .2s,height .2s,opacity .2s;
-}
+.section-sticker:focus-visible { outline:2px solid var(--ink); outline-offset:5px; }
+.section-sticker::before { transition:filter .2s; }
 .section-sticker.is-peeling { cursor:grabbing; z-index:20; }
-.section-sticker.is-peeling::before {
-  clip-path:polygon(0 0,100% 0,100% calc(100% - 15px),calc(100% - 15px) 100%,0 100%);
-  filter:drop-shadow(2px 5px 3px #15151535);
-}
-.section-sticker.is-peeling::after { width:15px; height:15px; opacity:1; }
+.section-sticker.is-peeling::before { filter:drop-shadow(0 3px 2px #343b3c24); }
 @media(hover:hover) {
-  .section-sticker:hover::before { filter:drop-shadow(1px 3px 2px #15151530); }
+  .section-sticker:hover::before { filter:drop-shadow(0 2px 1px #343b3c20); }
 }
 @media(prefers-reduced-motion:reduce) {
-  .section-sticker::before,.section-sticker::after { transition:none; }
+  .section-sticker::before { transition:none; }
 }
 
-
-/* Color study: one paper stock per section, with the same black ink. */
-.studio-about .section-sticker { --sticker-paper:url('/paper-sticker-pink.svg'); --sticker-fold:#ffe0ed; }
-.studio-work .section-sticker { --sticker-paper:url('/paper-sticker-blue.svg'); --sticker-fold:#dcf3ff; }
-.studio-offerings .section-sticker { --sticker-paper:url('/paper-sticker-green.svg'); --sticker-fold:#eaffcb; }
-.contact .section-sticker { --sticker-paper:url('/paper-sticker-lavender.svg'); --sticker-fold:#efe6ff; }
+/* Muted paper palette in section order. */
+.studio-hero .section-sticker { --sticker-paper:url('/paper-sticker-green.svg'); --sticker-fold:#b5d0bc; }
+.studio-about .section-sticker { --sticker-paper:url('/paper-sticker-pink.svg'); --sticker-fold:#bea49c; }
+.studio-work .section-sticker { --sticker-paper:url('/paper-sticker.svg'); --sticker-fold:#f0e4b8; }
+.studio-offerings .section-sticker { --sticker-paper:url('/paper-sticker-blue.svg'); --sticker-fold:#efd0bd; }
+.contact .section-sticker { --sticker-paper:url('/paper-sticker-lavender.svg'); --sticker-fold:#d6cfe0; }

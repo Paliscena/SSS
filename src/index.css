@@ -1,6 +1,6 @@
 @font-face { font-family: 'Inter Variable'; font-style: normal; font-display: swap; font-weight: 100 900; src: url('@fontsource-variable/inter/files/inter-latin-wght-normal.woff2') format('woff2'); }
 
-:root { font-family: 'Inter Variable', sans-serif; color: #ffffff; background: #d63824; font-synthesis: none; text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; --paper: #d63824; --ink: #ffffff; --red: #d63824; --progress: 0; --hero-drift: 0px; }
+:root { font-family: 'Inter Variable', sans-serif; color: #f0e9d3; background: #7c94aa; font-synthesis: none; text-rendering: optimizeLegibility; -webkit-font-smoothing: antialiased; --paper: #7c94aa; --ink: #f0e9d3; --red: #7c94aa; --progress: 0; --hero-drift: 0px; }
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; scroll-padding-top: 32px; }
 body { margin: 0; }
