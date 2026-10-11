@@ -1,4 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
+import { SlidingSmiley } from './SlidingSmiley'
+import { StudioSmiley } from './StudioSmiley'
 import { studio } from '../data/studio'
 
 const replies = ['Are we having fun yet?', 'Yes. Keep going.', 'Now we’re getting somewhere.', 'Good. Let’s make something.']
@@ -27,9 +29,9 @@ export function StudioHero() {
         const dx = x - rect.left - rect.width / 2
         const dy = y - rect.top - rect.height / 2
         const influence = Math.exp(-(dx * dx + dy * dy) / (radius * radius)) * strength
-        letters[index].style.transform = `translateY(${dy * .12 * influence}px) scale(${1 + influence * .018},${1 + influence * .14})`
+        letters[index].style.transform = `translateY(${dy * .07 * influence}px) scale(${1 + influence * .018},${1 + influence * .08})`
       })
-      distortion.current?.setAttribute('scale', String(strength * 9))
+      distortion.current?.setAttribute('scale', String(strength * 5))
       if (active || strength > .002) frame = requestAnimationFrame(draw)
       else reset()
     }
@@ -51,10 +53,11 @@ export function StudioHero() {
     }
   }, [])
   return <section className="studio-hero" aria-labelledby="hero-title">
-    <div className="studio-hero-meta"><span>Independent creative studio</span></div>
+    <div className="studio-hero-meta"><span className="section-sticker">01 / Independent creative studio</span></div>
     <svg className="goo-filter" aria-hidden="true" width="0" height="0"><defs><filter id="hero-goo" x="-10%" y="-20%" width="120%" height="140%" colorInterpolationFilters="sRGB"><feTurbulence type="fractalNoise" baseFrequency=".005 .012" numOctaves="2" seed="8" result="flow" /><feDisplacementMap ref={distortion} in="SourceGraphic" in2="flow" scale="0" xChannelSelector="R" yChannelSelector="G" /></filter></defs></svg>
     <h1 ref={title} id="hero-title" className="studio-wordmark" aria-label="SUPER STUPID STUDIOS">{['SUPER', 'STUPID', 'STUDIOS'].map(word => <span key={word} className="goo-word" aria-hidden="true">{[...word].map((letter, index) => <span className="goo-letter" key={index}>{letter}</span>)}{word === 'STUDIOS' && <sup>®</sup>}</span>)}</h1>
-    <button className="fun-question" onClick={() => setReply(value => (value + 1) % replies.length)} aria-label={studio.question}><span aria-live="polite">{replies[reply]}</span></button>
+    <button className="fun-question" onClick={() => setReply(value => (value + 1) % replies.length)} aria-label={studio.question}><span aria-live="polite">{replies[reply]}</span><span className="smiley-dock"><StudioSmiley mood={reply} /></span></button>
+    <SlidingSmiley />
     <div className="studio-hero-bottom"><span>Creative thinking.<br />Culture moving.</span><a href="#about">Meet the studio </a><span>Scroll for the good stuff.</span></div>
   </section>
 }

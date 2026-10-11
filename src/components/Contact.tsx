@@ -1,6 +1,8 @@
 import { useState } from 'react'
+import { StudioSmiley } from './StudioSmiley'
 
 export function Contact() {
+  const [mood, setMood] = useState(0)
   const [copied, setCopied] = useState(false)
   const [failed, setFailed] = useState(false)
   const copy = async () => {
@@ -8,7 +10,8 @@ export function Contact() {
     catch { setFailed(true) }
   }
   return <footer id="contact" className="contact" data-reveal>
-    <div className="section-meta"><span>05 / Contact</span></div>
+    <div className="section-meta"><span className="section-sticker">05 / Contact</span></div>
+    <button className="footer-smiley" onClick={() => setMood(value => value + 1)} aria-label="Change the studio smiley’s expression"><StudioSmiley mood={mood} /><span>Still having fun?</span></button>
     <h2>Let’s make<br />something move.</h2>
     <div className="contact-bottom">
       <div><button className="email-button" onClick={copy}>hello@example.com</button><p className="micro" aria-live="polite">{failed ? 'Copy unavailable — hello@example.com' : copied ? 'Copied. Placeholder address — replace before launch.' : 'Placeholder email — replace before launch.'}</p></div>
