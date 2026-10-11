@@ -3,10 +3,12 @@ import { StudioHero } from '../components/StudioHero'
 import { VideoWork } from '../components/VideoWork'
 import { studio } from '../data/studio'
 import './StudioHome.css'
+import { usePeelableStickers } from '../hooks/usePeelableStickers'
 import { useScrollGel } from '../hooks/useScrollGel'
 
 export function Home() {
   useScrollGel()
+  usePeelableStickers()
   return <main id="main-content" className="studio-home">
     <StudioHero />
     <section id="about" className="studio-about" aria-labelledby="about-title" data-reveal>
