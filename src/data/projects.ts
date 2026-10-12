@@ -84,8 +84,8 @@ Object.assign(projects[3], {
 Object.assign(projects[2], { previewSrc:'/media/eybl-preview.mp4', image:'/media/eybl-poster.jpg' })
 Object.assign(projects[3], { previewSrc:'/media/art-of-training-preview.mp4', image:'/media/art-of-training-poster.jpg' })
 
-projects[2].filmSrc = '/media/eybl-film.mp4'
-projects[3].filmSrc = '/media/art-of-training-film.mp4'
+projects[2].filmSrc = 'https://media.superstupidstudios.com/eybl-film.mp4'
+projects[3].filmSrc = 'https://media.superstupidstudios.com/art-of-training-film.mp4'
 
 Object.assign(projects[4], {
   slug:'built-different', title:'Built Different', client:'Google × NBA', category:'Campaign',
@@ -96,9 +96,9 @@ Object.assign(projects[4], {
   note:'Google × NBA', description:'Three films for Google × NBA’s Built Different project.',
   gallery:[], credits:[],
   films:[
-    {title:'Launch Anthem',src:'/media/built-different-anthem.mp4',poster:'/media/built-different-anthem-poster.jpg'},
-    {title:'Druski’s Declaration',src:'/media/built-different-declaration.mp4',poster:'/media/built-different-declaration-poster.jpg',portrait:true},
-    {title:'Druski’s Hoopstape',src:'/media/built-different-hoopstape.mp4',poster:'/media/built-different-hoopstape-poster.jpg',portrait:true},
+    {title:'Launch Anthem',src:'https://media.superstupidstudios.com/built-different-anthem.mp4',poster:'/media/built-different-anthem-poster.jpg'},
+    {title:'Druski’s Declaration',src:'https://media.superstupidstudios.com/built-different-declaration.mp4',poster:'/media/built-different-declaration-poster.jpg',portrait:true},
+    {title:'Druski’s Hoopstape',src:'https://media.superstupidstudios.com/built-different-hoopstape.mp4',poster:'/media/built-different-hoopstape-poster.jpg',portrait:true},
   ],
 })
 
@@ -111,8 +111,44 @@ Object.assign(projects[5], {
   note:'Google × NBA', description:'A three-episode series for Google × NBA.',
   gallery:[], credits:[],
   films:[
-    {title:'Episode 1',src:'/media/road-to-all-star-ep-1.mp4',poster:'/media/road-to-all-star-ep-1-poster.jpg',portrait:true},
-    {title:'Episode 2',src:'/media/road-to-all-star-ep-2.mp4',poster:'/media/road-to-all-star-ep-2-poster.jpg',portrait:true},
-    {title:'Episode 3',src:'/media/road-to-all-star-ep-3.mp4',poster:'/media/road-to-all-star-ep-3-poster.jpg',portrait:true},
+    {title:'Episode 1',src:'https://media.superstupidstudios.com/road-to-all-star-ep-1.mp4',poster:'/media/road-to-all-star-ep-1-poster.jpg',portrait:true},
+    {title:'Episode 2',src:'https://media.superstupidstudios.com/road-to-all-star-ep-2.mp4',poster:'/media/road-to-all-star-ep-2-poster.jpg',portrait:true},
+    {title:'Episode 3',src:'https://media.superstupidstudios.com/road-to-all-star-ep-3.mp4',poster:'/media/road-to-all-star-ep-3-poster.jpg',portrait:true},
+  ],
+})
+
+
+projects.push({
+  slug:'arirang-world-tour', legacySlug:'project-7', title:'Arirang World Tour',
+  client:'HYBE × BTS', category:'Experience', year:'Year to come',
+  videoUrl:'', previewLoop:true, previewSrc:'/media/arirang-preview.mp4',
+  filmSrc:'https://media.superstupidstudios.com/arirang-world-tour.mp4',
+  image:'/media/arirang-poster.jpg', imageAlt:'HYBE × BTS — Arirang World Tour pop-up recap.',
+  imageWidth:3840, imageHeight:2160, note:'HYBE × BTS',
+  description:'Arirang World Tour pop-up recap for HYBE × BTS.', gallery:[], credits:[],
+})
+
+
+projects.push({
+  slug:'hope-on-the-stage', legacySlug:'project-8', title:'Hope on the Stage World Tour',
+  client:'HYBE × J-Hope', category:'Experience', year:'Year to come',
+  videoUrl:'', previewLoop:true, previewSrc:'/media/hope-on-the-stage-preview.mp4',
+  filmSrc:'https://media.superstupidstudios.com/hope-on-the-stage.mp4',
+  image:'/media/hope-on-the-stage-poster.jpg', imageAlt:'HYBE × J-Hope — Hope on the Stage World Tour Los Angeles pop-up recap.',
+  imageWidth:3840, imageHeight:2160, note:'HYBE × J-Hope',
+  description:'Hope on the Stage World Tour Los Angeles pop-up recap for HYBE × J-Hope.', gallery:[], credits:[],
+})
+
+
+projects.push({
+  slug:'go-dega', legacySlug:'project-9', title:'GO-DEGA', client:'HOKA × Extra Butter',
+  category:'Experience', year:'Year to come', videoUrl:'', previewLoop:true,
+  previewSrc:'/media/go-dega-preview.mp4', image:'/media/go-dega-spot-poster.jpg',
+  imageAlt:'HOKA × Extra Butter — GO-DEGA Spot 5.', imageWidth:3840, imageHeight:2160,
+  note:'HOKA × Extra Butter', description:'Three films from HOKA × Extra Butter’s GO-DEGA project.',
+  gallery:[], credits:[], films:[
+    {title:'Spot 5', src:'https://media.superstupidstudios.com/go-dega-spot.mp4', poster:'/media/go-dega-spot-poster.jpg'},
+    {title:'Bodega Preview', src:'https://media.superstupidstudios.com/go-dega-bodega.mp4', poster:'/media/go-dega-bodega-poster.jpg'},
+    {title:'Store Recap', src:'https://media.superstupidstudios.com/go-dega-store.mp4', poster:'/media/go-dega-store-poster.jpg', portrait:true},
   ],
 })

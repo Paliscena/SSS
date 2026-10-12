@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 import { projects } from '../data/projects'
 import type { Project } from '../data/projects'
 import { ProjectImage } from './ProjectImage'
@@ -9,6 +8,7 @@ import { videoEmbed } from '../lib/videoEmbed'
 function VideoDialog({ project, onClose }: { project: Project; onClose: () => void }) {
   const dialog = useRef<HTMLDialogElement>(null)
   const embed = videoEmbed(project.videoUrl)
+  const filmSrc = project.filmSrc
   useEffect(() => {
     const node = dialog.current
     const previousOverflow = document.body.style.overflow
@@ -17,8 +17,11 @@ function VideoDialog({ project, onClose }: { project: Project; onClose: () => vo
   }, [])
   return <dialog className="film-dialog" ref={dialog} onCancel={onClose} aria-labelledby="film-title">
     <div className="film-dialog-header"><h2 id="film-title">{project.title}</h2><button onClick={onClose} aria-label="Close project video">Close ×</button></div>
-    <div className="film-stage">{project.filmSrc ? <video src={project.filmSrc} poster={project.image} controls playsInline preload="metadata" aria-label={`${project.title} full film`} /> : embed ? <iframe src={embed} title={`${project.title} video`} allow="autoplay; fullscreen; picture-in-picture" allowFullScreen referrerPolicy="strict-origin-when-cross-origin" /> : <ProjectImage alt={`Empty grey video placeholder for ${project.title}`} width={1600} height={900} />}</div>
-    <div className="film-dialog-footer"><span>{project.client} / {project.category}</span><span>{embed ? 'Press play to watch.' : 'Video placeholder — link to come.'}</span></div>
+    {project.films?.length ? <div className="film-sequence" aria-label="Project films">{project.films.map((film,index) => <section className="film-sequence-item" key={film.src}>
+      <h3>0{index+1} / {film.title}</h3>
+      <div className={`film-stage${film.portrait ? ' film-stage-portrait' : ''}`}><video src={film.src} poster={film.poster} controls playsInline preload="metadata" aria-label={film.title} onPlay={event => { const active=event.currentTarget; dialog.current?.querySelectorAll('video').forEach(video => { if(video !== active) video.pause() }) }} /></div>
+    </section>)}</div> : <div className="film-stage">{filmSrc ? <video src={filmSrc} poster={project.image} controls playsInline preload="metadata" aria-label={`${project.title} full film`} /> : embed ? <iframe src={embed} title={`${project.title} video`} allow="autoplay; fullscreen; picture-in-picture" allowFullScreen referrerPolicy="strict-origin-when-cross-origin" /> : <ProjectImage alt={`Empty grey video placeholder for ${project.title}`} width={1600} height={900} />}</div>}
+    <div className="film-dialog-footer"><span>{project.client} / {project.category}</span><span>{embed || filmSrc || project.films?.length ? 'Press play to watch.' : 'Video placeholder — link to come.'}</span></div>
   </dialog>
 }
 
@@ -44,12 +47,12 @@ function VideoTile({ project, index, onOpen, previewsActive }: { project: Projec
     for (const [key,value] of Object.entries(parameters)) if (value !== undefined) preview.searchParams.set(key,value)
   }
   return <article ref={tile} className="film-tile" data-reveal>
-    <button className="film-button" onClick={onOpen} aria-label={`Open ${project.title} video${project.videoUrl || project.films?.length ? '' : ' placeholder'}`}>
+    <button className="film-button" onClick={onOpen} aria-label={`Open ${project.title} video${project.videoUrl || project.filmSrc || project.films?.length ? '' : ' placeholder'}`}>
       <div className={`film-image${project.previewFit === 'contain' ? ' portrait-preview' : ''}`}><ProjectImage src={project.image} alt={project.imageAlt} width={1600} height={900} />
         {loop && visible && previewsActive && !reduced && (project.previewSrc
           ? <video className="film-loop" src={project.previewSrc} poster={project.image} autoPlay loop muted playsInline preload="metadata" controls={false} disablePictureInPicture tabIndex={-1} aria-hidden="true" />
           : <iframe className="film-loop" src={preview!.toString()} title={`${project.title} muted preview`} allow="autoplay" tabIndex={-1} aria-hidden="true" referrerPolicy="strict-origin-when-cross-origin" />)}
-        {!project.videoUrl && !project.films?.length && <span className="film-hover" aria-hidden="true">View project</span>}
+        {!project.videoUrl && !project.filmSrc && !project.films?.length && <span className="film-hover" aria-hidden="true">View project</span>}
       </div>
       <div className="film-caption"><span className="film-number">0{index+1}</span><h3>{project.title}</h3><span>{project.category}</span></div>
       <span className="film-client">{project.client}</span>
@@ -58,10 +61,9 @@ function VideoTile({ project, index, onOpen, previewsActive }: { project: Projec
 }
 
 export function VideoWork() {
-  const navigate = useNavigate()
   const [selected, setSelected] = useState<Project | null>(null)
   return <>
-    <div className="film-grid">{projects.map((project,index) => <VideoTile key={project.slug} project={project} index={index} previewsActive={!selected} onOpen={() => project.films?.length ? navigate(`/work/${project.slug}`) : setSelected(project)} />)}</div>
+    <div className="film-grid">{projects.map((project,index) => <VideoTile key={project.slug} project={project} index={index} previewsActive={!selected} onOpen={() => setSelected(project)} />)}</div>
     {selected && <VideoDialog project={selected} onClose={() => setSelected(null)} />}
   </>
 }

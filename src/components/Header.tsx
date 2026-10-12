@@ -1,3 +1,4 @@
+import { projects } from '../data/projects'
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 
@@ -15,7 +16,7 @@ export function Header() {
     <header className="header">
       <Link className="brand" to="/" aria-label="Super Stupid Studios home">SSS<sup>®</sup></Link>
       <nav className="desktop-nav" aria-label="Main navigation">
-        <Link to="/#work">Work <sup>06</sup></Link><Link to="/#about">About</Link><Link to="/#offerings">What we do</Link><Link to="/#contact">Contact </Link>
+        <Link to="/#work">Work <sup>{String(projects.length).padStart(2, '0')}</sup></Link><Link to="/#about">About</Link><Link to="/#offerings">What we do</Link><Link to="/#contact">Contact </Link>
       </nav>
       <button ref={trigger} className="menu-trigger" onClick={() => setOpen(true)} aria-label="Open navigation menu" aria-expanded={open} aria-controls="site-menu"><span /><span /></button>
     </header>

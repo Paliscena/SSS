@@ -431,3 +431,11 @@ video.film-loop { object-fit:cover; background:var(--grey); }
 .film-image.portrait-preview { aspect-ratio:16/9; background:#343b3c; }
 .film-image.portrait-preview > img { width:100%; height:100%; object-fit:contain; }
 .portrait-preview video.film-loop { object-fit:contain; background:#343b3c; }
+
+/* Scroll through each film without leaving the homepage. */
+.film-dialog { overscroll-behavior:contain; }
+.film-dialog-header { position:sticky; top:-25px; z-index:2; background:var(--paper); padding-block:16px; }
+.film-sequence-item + .film-sequence-item { margin-top:48px; }
+.film-sequence-item h3 { font-size:13px; font-weight:500; margin-bottom:18px; }
+.film-stage.film-stage-portrait { aspect-ratio:9/16; width:min(100%,360px); margin-inline:auto; }
+@media(max-width:600px) { .film-dialog-header { top:-18px; } }
