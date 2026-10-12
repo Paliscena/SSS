@@ -22,7 +22,7 @@ export function Header() {
     <dialog aria-label="Navigation menu" id="site-menu" className="menu" ref={dialog} onCancel={close}>
       <div className="menu-top"><span className="brand">SSS<sup>®</sup></span><button className="text-button" onClick={close}>Close ×</button></div>
       <nav aria-label="Expanded navigation">{[{title:'Information',id:'information'},{title:'Work',id:'work'},{title:'Contact',id:'contact'}].map(item => <Link key={item.id} to={`/studio#${item.id}`} onClick={close}>{item.title}</Link>)}</nav>
-      <p>still having fun?</p>
+      <p>Still having fun?</p>
     </dialog>
   </>
 }

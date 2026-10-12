@@ -134,3 +134,8 @@ figcaption { padding-top:12px; color:var(--ink); }
 .menu-trigger:hover,.menu-trigger:focus-visible { color:#e0b79c; }
 .menu .text-button:hover { color:#ad8581; }
 @media(prefers-reduced-motion:reduce) { .fun-loader,.fun-loading-track span { transition:none; } .fun-loader .studio-smiley { animation:none; } }
+
+.desktop-nav a,.menu nav a { transform-origin:left center; width:max-content; max-width:100%; transition:color .18s,transform .2s; }
+.desktop-nav a:hover,.desktop-nav a:focus-visible,.menu nav a:hover,.menu nav a:focus-visible { text-decoration:none; transform:scale(1.04); animation:menu-bounce .42s ease-out; }
+@keyframes menu-bounce { 0% { transform:translateY(0) scale(1); } 40% { transform:translateY(-5px) scale(1.07); } 70% { transform:translateY(1px) scale(1.025); } 100% { transform:translateY(0) scale(1.04); } }
+@media(prefers-reduced-motion:reduce) { .desktop-nav a,.menu nav a { transition:color .18s; } .desktop-nav a:hover,.desktop-nav a:focus-visible,.menu nav a:hover,.menu nav a:focus-visible { animation:none; transform:none; } }

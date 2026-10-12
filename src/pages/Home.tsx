@@ -23,7 +23,6 @@ export function StudioPage() {
       <span id="about" /><span id="ethos" />
       <div className="section-meta"><span className="section-sticker">Information</span></div>
       <div className="information-reading">
-        <div className="information-intro">{studio.informationIntro.map(text => <p key={text}>{text}</p>)}</div>
         <h2 id="information-title">{studio.informationTitle}</h2>
         <div className="information-body">{studio.informationGroups.map((group,index) => <div className="information-group" key={index}>{group.map(text => <p key={text}>{text}</p>)}</div>)}</div>
         <div className="information-signoff"><p>SUPER STUPID STUDIOS</p><p>are we having fun yet?</p></div>
