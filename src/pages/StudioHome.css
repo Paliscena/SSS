@@ -420,3 +420,14 @@
 }
 @media(max-width:600px) { .work-dropdown > summary { font-size:clamp(26px,6.8vw,40px); } }
 @media(prefers-reduced-motion:reduce) { .work-dropdown > summary { animation:none; text-shadow:none; } }
+
+.film-tile { position:relative; }
+.film-loop { position:absolute; inset:0; width:100%; height:100%; border:0; pointer-events:none; }
+.film-loop-toggle { position:absolute; top:12px; right:12px; padding:8px 10px; font-size:10px; background:#343b3ce6; color:#f0e9d3; z-index:2; }
+.film-caption h3 { overflow-wrap:anywhere; text-wrap:balance; }
+video.film-loop { object-fit:cover; background:var(--grey); }
+.film-stage > video { display:block; width:100%; height:100%; object-fit:contain; background:#151515; }
+/* Preserve the entire vertical frame inside the landscape gallery slot. */
+.film-image.portrait-preview { aspect-ratio:16/9; background:#343b3c; }
+.film-image.portrait-preview > img { width:100%; height:100%; object-fit:contain; }
+.portrait-preview video.film-loop { object-fit:contain; background:#343b3c; }

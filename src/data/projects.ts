@@ -5,6 +5,11 @@ export interface Project {
   category: string
   client: string
   videoUrl: string
+  previewLoop?: boolean
+  previewSrc?: string
+  previewFit?: 'contain' | 'cover'
+  filmSrc?: string
+  films?: { title: string; src: string; poster: string; portrait?: boolean }[]
   year: string
   note: string
   description: string
@@ -40,3 +45,74 @@ export const projects: Project[] = legacySlugs.map((legacySlug, index) => ({
   ],
   credits: [{ role: 'Role', name: 'Name placeholder' }, { role: 'Role', name: 'Name placeholder' }, { role: 'Status', name: 'Placeholder project' }],
 }))
+
+// First real project supplied by the studio; remaining entries are placeholders.
+Object.assign(projects[0], {
+  title: 'Road Game', client: 'New Era', category: 'Campaign', year: '2026',
+  videoUrl: 'https://vimeo.com/1174541944', previewLoop: true,
+  image: 'https://i.vimeocdn.com/video/2158858079-b515b41bb743400592477f37d0c921a83106322d0c9446993d4389bdc3093e8b-d_295x166?region=us',
+  imageAlt: 'Road Game — New Era SS26 film preview.',
+  description: 'Project description to come.', note: 'Project details to come.',
+})
+
+Object.assign(projects[1], {
+  title: 'Legacy Fan', client: 'New Era', category: 'Campaign', year: '2026',
+  videoUrl: 'https://vimeo.com/1224665860', previewLoop: true,
+  image: 'https://i.vimeocdn.com/video/2198183142-ae6f4fa913232765661cacb810a3390a1390cdab69a49919b84719192575c8dc-d_295x166?region=us',
+  imageAlt: 'Legacy Fan — New Era FW26 film preview.',
+  description: 'Project description to come.', note: 'Project details to come.',
+})
+Object.assign(projects[2], {
+  title: 'EYBL & Chosen 1’s Invitational — Las Vegas Recap',
+  client: 'Client details to come', category: 'Film', year: '2024',
+  videoUrl: 'https://www.youtube.com/watch?v=DLFpI6Vq_9U', previewLoop: true,
+  image: 'https://i.ytimg.com/vi/DLFpI6Vq_9U/hqdefault.jpg',
+  imageAlt: 'EYBL and Chosen 1’s Invitational 2024 Las Vegas recap.',
+  description: 'Project description to come.', note: 'Project details to come.',
+})
+
+Object.assign(projects[3], {
+  title: 'The Art of Training', client: 'Nike × Beats by Dre', category: 'Film',
+  videoUrl: 'https://www.youtube.com/watch?v=sKEneed_Xjo', previewLoop: true,
+  image: 'https://i.ytimg.com/vi/sKEneed_Xjo/hqdefault.jpg',
+  imageAlt: 'The Art of Training — Nike, Beats by Dre, LeBron James and Art Basel.',
+  description: 'Project description to come.', note: 'Project details to come.',
+  year: 'Year to come',
+})
+
+// Optimized silent loops derived from the studio-supplied source files.
+Object.assign(projects[2], { previewSrc:'/media/eybl-preview.mp4', image:'/media/eybl-poster.jpg' })
+Object.assign(projects[3], { previewSrc:'/media/art-of-training-preview.mp4', image:'/media/art-of-training-poster.jpg' })
+
+projects[2].filmSrc = '/media/eybl-film.mp4'
+projects[3].filmSrc = '/media/art-of-training-film.mp4'
+
+Object.assign(projects[4], {
+  slug:'built-different', title:'Built Different', client:'Google × NBA', category:'Campaign',
+  year:'Year to come', videoUrl:'', previewLoop:true,
+  previewSrc:'/media/built-different-preview.mp4',
+  image:'/media/built-different-anthem-poster.jpg', imageAlt:'Google × NBA — Built Different Launch Anthem.',
+  imageWidth:1280,imageHeight:720,
+  note:'Google × NBA', description:'Three films for Google × NBA’s Built Different project.',
+  gallery:[], credits:[],
+  films:[
+    {title:'Launch Anthem',src:'/media/built-different-anthem.mp4',poster:'/media/built-different-anthem-poster.jpg'},
+    {title:'Druski’s Declaration',src:'/media/built-different-declaration.mp4',poster:'/media/built-different-declaration-poster.jpg',portrait:true},
+    {title:'Druski’s Hoopstape',src:'/media/built-different-hoopstape.mp4',poster:'/media/built-different-hoopstape-poster.jpg',portrait:true},
+  ],
+})
+
+Object.assign(projects[5], {
+  slug:'road-to-all-star', title:'Road to All-Star', client:'Google × NBA', category:'Film',
+  year:'Year to come', videoUrl:'', previewLoop:true, previewFit:'contain',
+  previewSrc:'/media/road-to-all-star-preview.mp4',
+  image:'/media/road-to-all-star-ep-1-poster.jpg', imageAlt:'Google × NBA — Road to All-Star Episode 1.',
+  imageWidth:720,imageHeight:1280,
+  note:'Google × NBA', description:'A three-episode series for Google × NBA.',
+  gallery:[], credits:[],
+  films:[
+    {title:'Episode 1',src:'/media/road-to-all-star-ep-1.mp4',poster:'/media/road-to-all-star-ep-1-poster.jpg',portrait:true},
+    {title:'Episode 2',src:'/media/road-to-all-star-ep-2.mp4',poster:'/media/road-to-all-star-ep-2-poster.jpg',portrait:true},
+    {title:'Episode 3',src:'/media/road-to-all-star-ep-3.mp4',poster:'/media/road-to-all-star-ep-3-poster.jpg',portrait:true},
+  ],
+})

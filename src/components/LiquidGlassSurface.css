@@ -1,0 +1,17 @@
+.liquid-glass-surface { position:relative; width:100%; touch-action:auto; }
+.liquid-glass-surface .goo-letter { filter:none; }
+.liquid-glass-surface .studio-wordmark { margin-inline:0; }
+.liquid-glass-surface canvas { position:absolute; inset:0; width:100%; height:100%; opacity:0; pointer-events:none; }
+.liquid-glass-surface[data-liquid-ready='true'] canvas { opacity:1; }
+.liquid-glass-surface[data-liquid-ready='true'] .liquid-glass-content { opacity:0; }
+.liquid-glass-surface:focus-visible { outline:1px solid var(--ink); outline-offset:8px; }
+@media(prefers-reduced-motion:reduce) {
+ .liquid-glass-surface canvas { display:none; }
+ .liquid-glass-surface .liquid-glass-content,.liquid-glass-surface .studio-wordmark { opacity:1; }
+}
+/* Extend the optical background without putting interface text into its texture. */
+.studio-hero:has(.liquid-glass-surface.is-full-bleed) { position:relative; isolation:isolate; }
+.liquid-glass-surface.is-full-bleed canvas { z-index:-1; }
+.header { position:relative; z-index:3; }
+.studio-home:has(.liquid-glass-surface.is-full-bleed) { overflow:visible; }
+body:has(.liquid-glass-surface.is-full-bleed) { overflow-x:clip; }

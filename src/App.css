@@ -108,3 +108,13 @@ figcaption { padding-top:12px; color:var(--ink); }
 }
 @media(prefers-reduced-motion:reduce) { [data-reveal] { opacity:1; translate:none; } .hero-letter { transform:none !important; } .cursor { display:none; } }
 @media(pointer:coarse) { .cursor { display:none; } }
+
+.project-films { margin:40px var(--gutter) 70px; }
+.project-films h2 { font-size:14px; font-weight:600; margin:0 0 18px; }
+.project-films video { display:block; width:100%; background:#343b3c; object-fit:contain; }
+.project-film-hero video { aspect-ratio:16/9; }
+.project-film-pair { display:grid; grid-template-columns:1fr 1fr; gap:30px; margin:55px auto 0; max-width:900px; }
+.project-film-pair video { aspect-ratio:9/16; }
+@media(max-width:600px) { .project-film-pair { grid-template-columns:1fr; gap:35px; max-width:420px; } }
+.project-film-hero.is-portrait { max-width:420px; margin-inline:auto; }
+.project-film-hero.is-portrait video { aspect-ratio:9/16; }
