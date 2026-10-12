@@ -152,3 +152,12 @@ projects.push({
     {title:'Store Recap', src:'https://media.superstupidstudios.com/go-dega-store.mp4', poster:'/media/go-dega-store-poster.jpg', portrait:true},
   ],
 })
+
+
+projects.push({
+  slug:'all-in-my-mind', legacySlug:'project-10', title:'All in My Mind', client:'Aneesa Strings',
+  category:'Music Video', year:'Year to come', videoUrl:'https://vimeo.com/1142227388', previewLoop:true,
+  image:'https://i.vimeocdn.com/video/2165314949-256436ae84f88ae1fe06468bbe7f449a04d1dae46a770958ff724c797c8ab8fa-d_295x166?region=us',
+  imageAlt:'Aneesa Strings — All in My Mind music video.', imageWidth:1600,imageHeight:900,
+  note:'Aneesa Strings',description:'All in My Mind — music video for Aneesa Strings.',gallery:[],credits:[],
+})

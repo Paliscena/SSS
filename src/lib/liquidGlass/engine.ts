@@ -16,12 +16,17 @@ export function createLiquidGlassEngine(canvas: HTMLCanvasElement, stage: HTMLEl
     const bottom = divider?.getBoundingClientRect().top || rect.bottom
     return { left:rect.left, top, width:rect.width, height:Math.max(1,bottom-top) }
   }
-  const gl = canvas.getContext('webgl2', { alpha: false, antialias: false, depth: false, stencil: false, powerPreference: 'high-performance' })
+  const gl = canvas.getContext('webgl2', { alpha: true, premultipliedAlpha: false, antialias: false, depth: false, stencil: false, powerPreference: 'high-performance' })
   if (!gl || !gl.getExtension('EXT_color_buffer_float')) return null
   const programs: WebGLProgram[] = []
   let targets: Target[] = []
   let heights: Target[] = []
   let source: WebGLTexture | null = null
+  let videoTexture: WebGLTexture | null = null
+  let videoUploadTime = 0
+  const videoRaster = document.createElement('canvas')
+  const videoContext = videoRaster.getContext('2d')
+  let videoAvailable = false
   let destroyed = false
   let settings = { ...initial }
   let width = 1, height = 1, simWidth = 1, simHeight = 1, read = 0
@@ -64,7 +69,7 @@ export function createLiquidGlassEngine(canvas: HTMLCanvasElement, stage: HTMLEl
   catch (error) { programs.forEach(p => gl.deleteProgram(p)); gl.deleteVertexArray(vao); throw error }
   const uniforms = (p: WebGLProgram, names: string[]) => Object.fromEntries(names.map(name => [name, gl.getUniformLocation(p, name)]))
   const sim = uniforms(simulation, ['field', 'size', 'viewport', 'dt', 'strength', 'smear', 'viscosity', 'radius', 'sensitivity', 'turbulence', 'stiffness', 'damping', 'count', 'segments[0]', 'speeds[0]'])
-  const draw = uniforms(rendering, ['source', 'field', 'heightField', 'size', 'time', 'aspect', 'thickness', 'distortion', 'refraction', 'chromaticAberration', 'ambientFlow', 'reflection', 'fullBleed'])
+  const draw = uniforms(rendering, ['source', 'field', 'heightField', 'size', 'time', 'aspect', 'thickness', 'distortion', 'refraction', 'chromaticAberration', 'ambientFlow', 'reflection', 'fullBleed', 'transparentBackground', 'videoSource', 'hasVideo', 'videoAspect'])
   const heightUniforms = uniforms(elevation, ['heightField', 'flow', 'size', 'dt', 'elasticity', 'viscosity'])
   function texture(filter: number) {
     const result = gl!.createTexture()!
@@ -100,11 +105,35 @@ export function createLiquidGlassEngine(canvas: HTMLCanvasElement, stage: HTMLEl
     gl!.viewport(0, 0, canvas.width, canvas.height)
     gl!.useProgram(rendering)
     bind(source, 0); bind(targets[read].texture, 1); bind(heights[read].texture, 2)
+    const video = region?.querySelector<HTMLVideoElement>('.landing-films video.is-front')
+    if (video && video.readyState >= 2 && videoContext) {
+      const now = performance.now(), coarse = matchMedia('(pointer:coarse)').matches
+      if (!videoTexture || now-videoUploadTime > (coarse ? 66 : 33)) {
+        if (!videoTexture) videoTexture = texture(gl!.LINEAR)
+        const targetWidth = Math.min(video.videoWidth,coarse ? 640 : 1280)
+        const targetHeight = Math.round(targetWidth*video.videoHeight/video.videoWidth)
+        if(videoRaster.width!==targetWidth || videoRaster.height!==targetHeight) { videoRaster.width=targetWidth; videoRaster.height=targetHeight }
+        try {
+          videoContext.drawImage(video,0,0,targetWidth,targetHeight)
+          bind(videoTexture,3)
+          gl!.pixelStorei(gl!.UNPACK_FLIP_Y_WEBGL,true)
+          gl!.texImage2D(gl!.TEXTURE_2D,0,gl!.RGBA,gl!.RGBA,gl!.UNSIGNED_BYTE,videoRaster)
+          gl!.pixelStorei(gl!.UNPACK_FLIP_Y_WEBGL,false)
+          videoAvailable=true; videoUploadTime=now
+        } catch { videoAvailable=false }
+      }
+    }
+    bind(videoTexture || source,3)
+    bind(source,0); bind(targets[read].texture,1); bind(heights[read].texture,2)
+    gl!.uniform1i(draw.videoSource,3)
+    gl!.uniform1f(draw.hasVideo,videoAvailable ? 1 : 0)
+    gl!.uniform1f(draw.videoAspect,video && video.videoHeight ? video.videoWidth/video.videoHeight : 1)
     gl!.uniform1i(draw.source, 0); gl!.uniform1i(draw.field, 1); gl!.uniform1i(draw.heightField, 2)
     gl!.uniform2f(draw.size, simWidth, simHeight)
     gl!.uniform1f(draw.time, performance.now() / 1000)
     gl!.uniform1f(draw.aspect, width / height)
     gl!.uniform1f(draw.fullBleed,region ? 1 : 0)
+    gl!.uniform1f(draw.transparentBackground,region?.querySelector('.landing-films') && !videoAvailable ? 1 : 0)
     for (const name of ['thickness','distortion','refraction','chromaticAberration','ambientFlow','reflection'] as const) {
       const mobileScale=width<600 && (name==='distortion' || name==='ambientFlow') ? .65 : 1
       gl!.uniform1f(draw[name],settings[name]*mobileScale)
@@ -135,7 +164,7 @@ export function createLiquidGlassEngine(canvas: HTMLCanvasElement, stage: HTMLEl
     canvas.width = Math.round(width * dpr); canvas.height = Math.round(height * dpr)
     const raster = document.createElement('canvas'); raster.width = canvas.width; raster.height = canvas.height
     const ctx = raster.getContext('2d')!
-    ctx.scale(dpr,dpr); ctx.fillStyle=getComputedStyle(stage).getPropertyValue('--paper').trim() || '#90979e'; ctx.fillRect(0,0,width,height); ctx.textBaseline='alphabetic'
+    ctx.scale(dpr,dpr); ctx.fillStyle=getComputedStyle(stage).getPropertyValue('--paper').trim() || '#90979e'; if (!region?.querySelector('.landing-films')) ctx.fillRect(0,0,width,height); ctx.textBaseline='alphabetic'
     heading.querySelectorAll<HTMLElement>('[data-glass-text], .goo-letter, .goo-word sup').forEach(node => {
       const box = node.getBoundingClientRect(), style = getComputedStyle(node)
       ctx.fillStyle = style.color
@@ -258,7 +287,7 @@ export function createLiquidGlassEngine(canvas: HTMLCanvasElement, stage: HTMLEl
     interaction.removeEventListener('pointerdown', down); interaction.removeEventListener('pointerup', up); interaction.removeEventListener('pointercancel', cancelTouch)
     stage.removeEventListener('keydown', key); document.removeEventListener('visibilitychange', hidden)
     canvas.removeEventListener('webglcontextlost', onContextLost)
-    releaseTargets(); if (source) gl!.deleteTexture(source)
+    releaseTargets(); if (source) gl!.deleteTexture(source); if(videoTexture) gl!.deleteTexture(videoTexture)
     programs.forEach(p => gl!.deleteProgram(p)); gl!.deleteVertexArray(vao)
     delete stage.dataset.liquidReady; delete stage.dataset.liquidState
   }

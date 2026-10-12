@@ -109,6 +109,9 @@ precision highp float;
 in vec2 uv;
 out vec4 color;
 uniform sampler2D source;
+uniform sampler2D videoSource;
+uniform float hasVideo;
+uniform float videoAspect;
 uniform sampler2D field;
 uniform sampler2D heightField;
 uniform vec2 size;
@@ -121,6 +124,7 @@ uniform float chromaticAberration;
 uniform float ambientFlow;
 uniform float reflection;
 uniform float fullBleed;
+uniform float transparentBackground;
 vec4 bilinear(sampler2D tex,vec2 p) {
  vec2 pos=clamp(p,vec2(0.),vec2(1.))*size-.5,b=floor(pos),f=fract(pos),e=1./size;
  return mix(mix(texture(tex,(b+.5)*e),texture(tex,(b+vec2(1.5,.5))*e),f.x),mix(texture(tex,(b+vec2(.5,1.5))*e),texture(tex,(b+1.5)*e),f.x),f.y);
@@ -159,12 +163,22 @@ vec3 environment(vec3 ray) {
  float fineStrip=pow(max(0.,1.-abs(ray.x+.32)*28.),9.)*smoothstep(-.25,.25,ray.y);
  return mix(vec3(.025,.032,.04),vec3(.35,.4,.45),dark)+vec3(.95,.97,1.)*window+vec3(1.)*strip*.7+vec3(1.)*fineStrip*.65;
 }
-vec3 background(vec2 p) { return texture(source,clamp(p,vec2(.001),vec2(.999))).rgb; }
+vec3 background(vec2 p) {
+ vec4 text=texture(source,clamp(p,vec2(.001),vec2(.999)));
+ if(hasVideo>.5) {
+   vec2 videoUV=p;
+   if(aspect>videoAspect) videoUV.y=(p.y-.5)*videoAspect/aspect+.5;
+   else videoUV.x=(p.x-.5)*aspect/videoAspect+.5;
+   vec3 footage=texture(videoSource,clamp(videoUV,vec2(.001),vec2(.999))).rgb*.67;
+   return mix(footage,text.rgb,text.a);
+ }
+ return text.rgb;
+}
 void main() {
  vec3 original=background(uv);
  float distance=shape(uv);
  float cover=1.-smoothstep(-.003,.006,distance);
- if(cover<.001) {color=vec4(original,1.);return;}
+ if(cover<.001) {color=vec4(original,transparentBackground>.5 ? texture(source,uv).a : 1.);return;}
  float e=.0025;
  float h=elevation(uv);
  vec2 grad=vec2(elevation(uv+vec2(e,0.))-elevation(uv-vec2(e,0.)),elevation(uv+vec2(0.,e))-elevation(uv-vec2(0.,e)))/(2.*e);
@@ -194,5 +208,10 @@ void main() {
  glass+=(spectrum-.5)*smoothstep(.03,.3,edge)*reflection*.1*mix(.35,1.,activity);
  glass*=1.-thickness*.035;
  float bottomFade=fullBleed>.5 ? smoothstep(0.,.22,uv.y) : 1.;
- color=vec4(mix(original,glass,cover*bottomFade),1.);
+ float alpha=1.;
+ if(transparentBackground>.5) {
+   float textAlpha=mix(texture(source,uv).a,texture(source,clamp(sampleUV,vec2(.001),vec2(.999))).a,cover*bottomFade);
+   alpha=max(textAlpha,clamp((reflectAmount*.65+spec*.6+second*.4)*cover*bottomFade,0.,.6));
+ }
+ color=vec4(mix(original,glass,cover*bottomFade),alpha);
 }`

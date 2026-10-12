@@ -54,7 +54,7 @@ function VideoTile({ project, index, onOpen, previewsActive }: { project: Projec
           : <iframe className="film-loop" src={preview!.toString()} title={`${project.title} muted preview`} allow="autoplay" tabIndex={-1} aria-hidden="true" referrerPolicy="strict-origin-when-cross-origin" />)}
         {!project.videoUrl && !project.filmSrc && !project.films?.length && <span className="film-hover" aria-hidden="true">View project</span>}
       </div>
-      <div className="film-caption"><span className="film-number">0{index+1}</span><h3>{project.title}</h3><span>{project.category}</span></div>
+      <div className="film-caption"><span className="film-number">{String(index+1).padStart(2, '0')}</span><h3>{project.title}</h3><span>{project.category}</span></div>
       <span className="film-client">{project.client}</span>
     </button>
   </article>
