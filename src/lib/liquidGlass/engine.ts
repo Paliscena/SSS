@@ -110,7 +110,7 @@ export function createLiquidGlassEngine(canvas: HTMLCanvasElement, stage: HTMLEl
       const now = performance.now(), coarse = matchMedia('(pointer:coarse)').matches
       if (!videoTexture || now-videoUploadTime > (coarse ? 66 : 33)) {
         if (!videoTexture) videoTexture = texture(gl!.LINEAR)
-        const targetWidth = Math.min(video.videoWidth,coarse ? 640 : 1280)
+        const targetWidth = Math.min(video.videoWidth,coarse ? 960 : 1280)
         const targetHeight = Math.round(targetWidth*video.videoHeight/video.videoWidth)
         if(videoRaster.width!==targetWidth || videoRaster.height!==targetHeight) { videoRaster.width=targetWidth; videoRaster.height=targetHeight }
         try {

@@ -1,4 +1,3 @@
-import { projects } from '../data/projects'
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 
@@ -16,15 +15,14 @@ export function Header() {
     <header className="header">
       <Link className="brand" to="/" aria-label="Super Stupid Studios home">SSS<sup>®</sup></Link>
       <nav className="desktop-nav" aria-label="Main navigation">
-        <Link to="/studio#work">Work <sup>{String(projects.length).padStart(2, '0')}</sup></Link><Link to="/studio#information">Information</Link><Link to="/studio#contact">Contact </Link>
+        <Link to="/studio#information">Information</Link><Link to="/studio#work">Work</Link><Link to="/studio#contact">Contact </Link>
       </nav>
       <button ref={trigger} className="menu-trigger" onClick={() => setOpen(true)} aria-label="Open navigation menu" aria-expanded={open} aria-controls="site-menu"><span /><span /></button>
     </header>
     <dialog aria-label="Navigation menu" id="site-menu" className="menu" ref={dialog} onCancel={close}>
       <div className="menu-top"><span className="brand">SSS<sup>®</sup></span><button className="text-button" onClick={close}>Close ×</button></div>
-      <span className="eyebrow">Navigation.</span>
-      <nav aria-label="Expanded navigation">{[{title:'Work',id:'work'},{title:'Information',id:'information'},{title:'Contact',id:'contact'}].map((item, index) => <Link key={item.id} to={`/studio#${item.id}`} onClick={close}><sup>0{index + 1}</sup>{item.title}</Link>)}</nav>
-      <p>Are we having fun yet?</p>
+      <nav aria-label="Expanded navigation">{[{title:'Information',id:'information'},{title:'Work',id:'work'},{title:'Contact',id:'contact'}].map(item => <Link key={item.id} to={`/studio#${item.id}`} onClick={close}>{item.title}</Link>)}</nav>
+      <p>still having fun?</p>
     </dialog>
   </>
 }

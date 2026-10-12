@@ -64,7 +64,7 @@ Object.assign(projects[1], {
 })
 Object.assign(projects[2], {
   title: 'EYBL & Chosen 1’s Invitational — Las Vegas Recap',
-  client: 'Client details to come', category: 'Film', year: '2024',
+  client: 'Nike x LBJ', category: 'Film', year: '2024',
   videoUrl: 'https://www.youtube.com/watch?v=DLFpI6Vq_9U', previewLoop: true,
   image: 'https://i.ytimg.com/vi/DLFpI6Vq_9U/hqdefault.jpg',
   imageAlt: 'EYBL and Chosen 1’s Invitational 2024 Las Vegas recap.',

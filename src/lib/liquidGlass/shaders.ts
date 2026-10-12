@@ -147,10 +147,14 @@ float elevation(vec2 p) {
  vec2 q=p+bilinear(field,p).xy;
  float inside=smoothstep(.025,-.04,distance);
  float cap=fullBleed>.5 ? .12 : sqrt(max(0.,-distance))*.3;
- float t=time*.115;
- q+=.07*vec2(sin(q.y*9.-t*.6),sin(q.x*7.+t*.7));
- float fold1=sin(q.x*16.+q.y*8.+t);
- float fold2=sin(q.y*20.-q.x*7.-t*.8);
+ float t=time*.225;
+ // Slowly changing cross-currents avoid one persistent direction.
+ vec2 drift=vec2(sin(t*.61)+.45*sin(t*1.17+1.4),cos(t*.47)+.4*sin(t*.93+2.1));
+ q+=drift*.042;
+ q+=.018*vec2(sin(t*.83+q.y*4.),cos(t*.69+q.x*3.));
+ q+=.07*vec2(sin(q.y*9.-t*.6+.4*sin(t*.53)),sin(q.x*7.+t*.7+.4*cos(t*.39)));
+ float fold1=sin(q.x*16.+q.y*8.+t+.8*sin(t*.37)+.3*cos(t*.91));
+ float fold2=sin(q.y*20.-q.x*7.-t*.8+.7*cos(t*.51)+.25*sin(t*1.13));
  float folds=(sqrt(fold1*fold1+.045)+fold2*.6)*.07*ambientFlow;
  folds+=sin(q.x*9.-q.y*11.+t*.43)*.024*ambientFlow;
  return (cap+folds+bilinear(heightField,p).r*2.)*inside;

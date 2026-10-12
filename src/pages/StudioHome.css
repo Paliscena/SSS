@@ -475,3 +475,7 @@ video.film-loop { object-fit:cover; background:var(--grey); }
 @media(max-width:600px) { .landing-films { top:-80px; } }
 
 body:has(.landing-films) .header { background:transparent; }
+
+.studio-page-title { margin:45px var(--gutter) 65px; font-size:clamp(45px,7vw,100px); font-weight:750; line-height:.98; letter-spacing:-.055em; max-width:14ch; }
+.studio-page-title sup { font-size:.2em; vertical-align:top; }
+@media(max-width:600px) { .studio-page-title { margin-top:30px; margin-bottom:45px; } }

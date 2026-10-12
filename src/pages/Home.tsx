@@ -18,7 +18,7 @@ export function StudioPage() {
   useScrollGel()
   usePeelableStickers()
   return <main id="main-content" className="studio-home">
-    <Link className="studio-home-link" to="/">SUPER STUPID STUDIOS®</Link>
+    <h1 className="studio-page-title"><Link to="/">SUPER STUPID STUDIOS<sup>®</sup></Link></h1>
     <section id="information" className="studio-information copy-section" aria-labelledby="information-title">
       <span id="about" /><span id="ethos" />
       <div className="section-meta"><span className="section-sticker">Information</span></div>
