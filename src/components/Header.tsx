@@ -1,3 +1,4 @@
+import { CyclingWordmark } from './CyclingWordmark'
 import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 
@@ -13,7 +14,7 @@ export function Header() {
   const close = () => { setOpen(false); trigger.current?.focus() }
   return <>
     <header className="header">
-      <Link className="brand" to="/" aria-label="Super Stupid Studios home">SSS<sup>®</sup></Link>
+      <Link className="brand" to="/" aria-label="Super Stupid Studios home"><CyclingWordmark /></Link>
       <nav className="desktop-nav" aria-label="Main navigation">
         <Link to="/studio#information">Information</Link><Link to="/studio#work">Work</Link><Link to="/studio#contact">Contact </Link>
       </nav>

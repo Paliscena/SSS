@@ -139,3 +139,14 @@ figcaption { padding-top:12px; color:var(--ink); }
 .desktop-nav a:hover,.desktop-nav a:focus-visible,.menu nav a:hover,.menu nav a:focus-visible { text-decoration:none; transform:scale(1.04); animation:menu-bounce .42s ease-out; }
 @keyframes menu-bounce { 0% { transform:translateY(0) scale(1); } 40% { transform:translateY(-5px) scale(1.07); } 70% { transform:translateY(1px) scale(1.025); } 100% { transform:translateY(0) scale(1.04); } }
 @media(prefers-reduced-motion:reduce) { .desktop-nav a,.menu nav a { transition:color .18s; } .desktop-nav a:hover,.desktop-nav a:focus-visible,.menu nav a:hover,.menu nav a:focus-visible { animation:none; transform:none; } }
+
+.header .menu-trigger { display:none; }
+.cycling-wordmark { display:inline-flex; align-items:baseline; gap:0; letter-spacing:0; }
+.cycling-wordmark > span { display:inline-block; width:.65em; text-align:center; line-height:1; font-weight:900; }
+.cycling-wordmark sup { margin-left:2px; }
+@media(max-width:600px) { .header .menu-trigger { display:block; } }
+
+.mouse-smiley { position:fixed; top:0; left:0; z-index:16; width:54px; height:54px; pointer-events:none; opacity:0; will-change:transform; transition:opacity .18s; }
+.mouse-smiley .studio-smiley { width:100%; height:100%; }
+body.has-smiley-trail .landing-question > .studio-smiley { visibility:hidden; }
+@media(pointer:coarse),(prefers-reduced-motion:reduce) { .mouse-smiley { display:none; } }

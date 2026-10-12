@@ -1,3 +1,4 @@
+import { MouseSmiley } from './components/MouseSmiley'
 import { LoadingFun } from './components/LoadingFun'
 import { useCallback, useEffect, useState } from 'react'
 import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom'
@@ -30,7 +31,7 @@ function Portfolio() {
     })
     return () => window.cancelAnimationFrame(frame)
   }, [location])
-  return <>{booting && <LoadingFun onReady={finishLoading} />}<div inert={booting}><a className="skip-link" href="#main-content">Skip to content</a><div id="top" /><Header key={location.key} /><div className="route-stage" key={location.pathname}><Routes><Route path="/" element={<Home />} /><Route path="/studio" element={<StudioPage />} /><Route path="/work/:slug" element={<ProjectDetail />} /><Route path="*" element={<ProjectDetail />} /></Routes></div><Cursor /></div></>
+  return <>{booting && <LoadingFun onReady={finishLoading} />}<div inert={booting}><a className="skip-link" href="#main-content">Skip to content</a><div id="top" /><Header key={location.key} /><div className="route-stage" key={location.pathname}><Routes><Route path="/" element={<Home />} /><Route path="/studio" element={<StudioPage />} /><Route path="/work/:slug" element={<ProjectDetail />} /><Route path="*" element={<ProjectDetail />} /></Routes></div><Cursor /><MouseSmiley /></div></>
 }
 
 export default function App() { return <BrowserRouter><Portfolio /></BrowserRouter> }
