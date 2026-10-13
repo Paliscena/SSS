@@ -11,6 +11,6 @@ export function StudioHero() {
     </LiquidGlassSurface>
     <div className="landing-question"><span className="section-sticker">are we having fun yet?</span><StudioSmiley mood={0} /></div>
     <p className="studio-hero-intro"><em>A Creative Studio For Smart People &amp; Stupid Ideas</em></p>
-    <div className="studio-hero-bottom"><Link className="come-play" to="/studio"><span aria-hidden="true">↓</span><span>COME PLAY</span><span aria-hidden="true">↓</span></Link></div>
+    <div className="studio-hero-bottom"><Link className="come-play" to="/studio"><span aria-hidden="true">→</span><span>COME PLAY</span><span aria-hidden="true">←</span></Link></div>
   </section>
 }
