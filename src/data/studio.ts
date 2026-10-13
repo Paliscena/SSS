@@ -69,5 +69,5 @@ export const studio = {
   ],
   "contactTitle": "HAVE A STUPID IDEA?",
   "contactSubtitle": "Let’s figure out how to make it happen.",
-  "email": "thankyou@stuperstupidstudios.com"
+  "email": "thankyou@superstupidstudios.com"
 }

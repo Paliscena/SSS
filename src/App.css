@@ -5,7 +5,7 @@
 .desktop-nav { margin-left:auto; display:flex; gap:36px; font-size:12px; }
 .desktop-nav a { padding:8px 0; }
 .desktop-nav sup { font-size:8px; margin-left:3px; }
-a:hover { color:var(--ink); text-decoration:underline; text-underline-offset:4px; }
+a:hover { color:var(--ink); text-decoration:none; text-underline-offset:4px; }
 .menu-trigger { width:30px; height:36px; margin-left:48px; display:grid; align-content:center; gap:5px; padding:4px; }
 .menu-trigger span { height:1px; width:22px; background:var(--ink); }
 .hero { padding:48px var(--gutter) 55px; }
@@ -32,7 +32,7 @@ a:hover { color:var(--ink); text-decoration:underline; text-underline-offset:4px
 .project-caption h3 { font-size:16px; font-weight:500; letter-spacing:-.035em; }
 .project-caption p { font-size:10px; margin-top:5px; color:var(--ink); }
 .project-caption > span:last-child { text-align:right; font-size:15px; }
-.project-link:hover h3 { text-decoration:underline; text-underline-offset:4px; }
+.project-link:hover h3 { text-decoration:none; text-underline-offset:4px; }
 .work-end { margin-top:40px; color:var(--ink); font-size:10px; }
 .about-content { padding-top:50px; display:grid; grid-template-columns:1fr 1fr; gap:24px; }
 .about h2 { font-size:clamp(30px,4vw,65px); font-weight:500; line-height:1.08; letter-spacing:-.055em; }
@@ -150,3 +150,12 @@ figcaption { padding-top:12px; color:var(--ink); }
 .mouse-smiley .studio-smiley { width:100%; height:100%; }
 body.has-smiley-trail .landing-question > .studio-smiley { visibility:hidden; }
 @media(pointer:coarse),(prefers-reduced-motion:reduce) { .mouse-smiley { display:none; } }
+
+/* Shared destination colors across header, mobile menu, and footer. */
+a[href$="#work"] { --menu-hover:#e7d99b; }
+a[href$="#information"] { --menu-hover:#8aaf9a; }
+a[href$="#contact"] { --menu-hover:#beb0ce; }
+.desktop-nav a[href$="#work"],.menu nav a[href$="#work"] { --menu-hover:#e7d99b; }
+.desktop-nav a[href$="#information"],.menu nav a[href$="#information"] { --menu-hover:#8aaf9a; }
+.studio-footer-copy a:hover,.studio-footer-copy a:focus-visible { color:var(--menu-hover,#e0b79c); }
+a:hover,button:hover,.project-link:hover h3 { text-decoration:none; }
